@@ -1,0 +1,7 @@
+ï»¿<html><head><title>Edytor artów jscms</title></head><body><script language="JavaScript">
+function gox(){ zr = document.getElementById('tekst').value; z1 = /\r/g; wyn = zr.replace(z1,""); z2 = /\n/g; z3 = /\'/g;
+wyn2 = wyn.replace(z2,"<br>"); wynikx=wyn2.replace(z3,"\\\'"); document.getElementById('wynik').value=wynikx; alert('Teraz skopiuj tekst z dolnego okienka i umie¶æ go w pliku strony.js w odpowiednim miejscu');}
+function linki(){ txt=prompt('Podaj tekst linka',''); adres=prompt('Podaj adres URL','http://'); document.getElementById('tekst').value+='<a href="'+adres+'" target="self_">'+txt+'</a>'; }
+function obraz(){ nazwa=prompt('Podaj nazwe pliku z obrazem lub link do niego',''); opis=prompt('Podaj opis obrazka widoczny po najechaniu na niego myszk±',''); document.getElementById('tekst').value+='<img src="'+nazwa+'" alt="'+opis+'">';}
+</script><h3>Edytor Artyku³ów</h3><br><input type="button" value="Dodaj linka" onClick="linki()"><input type="button" value="Dodaj obraz" onClick="obraz()"> <br><textarea id="tekst" cols=80 rows=10></textarea><br><input type="button" value="Konwertuj" onClick="gox()">
+<br>Kod wynikowy:<br><textarea id="wynik" cols=80 rows=4></textarea></body></html>
