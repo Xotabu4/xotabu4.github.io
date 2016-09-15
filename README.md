@@ -1,1 +1,1 @@
-# https://xotabu4.github.io/website/
+# https://xotabu4.github.io/
