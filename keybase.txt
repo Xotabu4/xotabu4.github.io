@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/okhotemskyi
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://xotabu4.github.io
+  * I am okhotemskyi (https://keybase.io/okhotemskyi) on keybase.
+  * I have a public key ASCizjxQvvxUgtK7MZJlMSDfpZxpCsLUYzKLD5xQ-faZLgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01200ccc45863a2456123cb5d0c69b0ec7a9864ce45ddd4b45501166767c8a8833ab0a",
+      "host": "keybase.io",
+      "kid": "0120a2ce3c50befc5482d2bb3192653120dfa59c690ac2d463328b0f9c50f9f6992e0a",
+      "uid": "1c456a6dc3e3e6928f36fa4706954719",
+      "username": "okhotemskyi"
+    },
+    "merkle_root": {
+      "ctime": 1529593021,
+      "hash": "d83f277ed122b2d6549f99e5590bd4888eab472201eed1dc0a292ea69a9faaaea7c84a557383682eae02e558d886305a786100a891f73299e0f37d9a3d247822",
+      "hash_meta": "cea158949d2ead628f7af2c26e5aa6314534f7ec440ab23650ddf79013e8d231",
+      "seqno": 3120186
+    },
+    "service": {
+      "entropy": "Dvc3NqxAuMqAsd/eXF16rg25",
+      "hostname": "xotabu4.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "2.0.0"
+  },
+  "ctime": 1529593066,
+  "expire_in": 504576000,
+  "prev": "7b3d3006cbc6bdf979c0c413fcc605b1b6dd96e7200c51e6c9b064eeaf9365bb",
+  "seqno": 18,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgos48UL78VILSuzGSZTEg36WcaQrC1GMyiw+cUPn2mS4Kp3BheWxvYWTESpcCEsQgez0wBsvGvfl5wMQT/MYFsbbdlucgDFHmybBk7q+TZbvEID0ugjHnP2xSF0U77ifdCuXC1+9Aw14fm3C68gYoNHDlAgHCo3NpZ8RACO2ZXpY6VAHMAn+JTV5xlfJqpFVRAaz4XTzDBSYFw9b1Jee72+lgII7H92V+gx8BJ7NYCYtvv2MN1e0yuhZYDqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIN8v0wthsuL6hT1ihemKqpI2PegDFv39mon0YEM9GErAo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/okhotemskyi
+
+==================================================================
