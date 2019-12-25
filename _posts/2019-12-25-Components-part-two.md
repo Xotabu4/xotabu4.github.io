@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Own Components Collection
+title: Components Collection
 ---
 
 В [предыдущей статье](/Components) мы рассмотрели как можно создавать свои типы элементов, сохраняя полную обратную совместимость с WebElement на примере ProtractorJS. 
 
-Но один элемент это хорошо, но иногда возникает необходимость работать с множеством элементов. Это может быть коллекция однотипных элементов. Давайте для наглядности возьмем примером результаты поиска:
+Но один элемент это хорошо, но иногда возникает необходимость работать с множеством однотипных элементов. Это могут быть результаты поиска, подсказки в autocomplete, список статей, и многое другое. Давайте для наглядности возьмем примером результаты поиска:
 
 [Сама страница](https://demo.litecart.net/search?query=duck)
 
@@ -47,7 +47,7 @@ title: Own Components Collection
 ```
 
 
-С помощью паттерна Component мы опишем Product, который будет описывать одну карточку продукта на этой странице. Компонент начинается с тега `article` (Здесь и дальше примеры кода на TypeScript+ProtractorJS+protractor-element-extend):
+Используя паттерн Component мы создадим class Product, который будет описывать одну карточку продукта на этой странице. Компонент начинается с тега `article` (Здесь и дальше примеры кода на TypeScript+ProtractorJS+protractor-element-extend):
 
 ```typescript
 import { BaseFragment } from 'protractor-element-extend'
@@ -85,11 +85,11 @@ class Product extends BaseFragment {
 <a class="link" href="https://demo.litecart.net/someLink" title="Yellow Duck" data-id="1" data-sku="RD001" data-name="Yellow Duck" data-price="18.00">
 ```
 
-Он символизирует собой цену после применения всех скидок (если они есть).
+Он содержит цену после применения всех скидок (если они есть).
 
-Тут можно выбирать варианты (возможно найти еще способы). Я хочу использовать первый вариант, чтобы работать с той ценой которую пользователь реально видит в приложении.
+Тут можно выбрать или первый или второй вариант (возможно найти еще способы). Я хочу использовать первый вариант, чтобы работать с той ценой которую пользователь реально видит в приложении.
 
-Давайте реализуем эту функцию и парочку других для работы данными компонента:
+Давайте реализуем эту функцию и другие для работы данными компонента:
 
 ```typescript
 import { BaseFragment } from 'protractor-element-extend'
@@ -106,7 +106,7 @@ class Product extends BaseFragment {
     }
 
     /**
-     * Возвращаем true, если особый .sale стикер существует в этом компоненте
+     * Возвращаем true, если .sale стикер существует в этом компоненте
      */
     public async isDiscounted(): Promise<boolean> {
         return this.$('.sticker.sale').isPresent()
@@ -119,7 +119,6 @@ class Product extends BaseFragment {
     public async manufacturer(): Promise<string> {
         return this.$('.info .manufacturer-name').getText()
     }
-
 
     public async open(): Promise<void> {
         await this.click()
@@ -134,7 +133,7 @@ class Product extends BaseFragment {
 }
 ```
 
-Мы описали не все, но достаточно для нашего примера. Давайте теперь перейдем к описанию коллекции результатов. В библиотеке `protractor-element-extend` существуют заготовки которые позволяют объявлять свои компоненты, но и также существует возможность наследоватся от коллекции элементов (ElementArrayFinder в protractor). Этот объект будет не потомком стандартного Array, но довольно похожим. Особенность в том что наша унаследованная коллекция элементов будет содержать в себе не сырые ElementFinder, а наши компоненты.
+Можно расширять наш компонент новыми функциями, но пока достаточно. Давайте теперь перейдем к описанию коллекции результатов. В библиотеке `protractor-element-extend` так же доступен `BaseArrayFragment` который можно использовать для создания своих коллекции компонентов. Этот объект будет не потомком стандартного Array, а будет наследоватся от протракторовского [ElementArrayFinder](http://www.protractortest.org/#/api?view=ElementArrayFinder). А также бонус в том что наша унаследованная коллекция элементов может содержать в себе не сырые ElementFinder, а наши кастомные компоненты.
 
 Объявить свою коллекцию элементов и указать какой тип будет у каждого элемента очень просто:
 
@@ -246,7 +245,7 @@ console.log(`Yellow duck has price:`, await yellowDuck.price())
 console.log(`Yellow duck has manufacturer:`, await yellowDuck.manufacturer())
 ```
 
-Можно легко и быстро собирать всю информацю по всех товарах, если добавить метод в Product, который будет ее предоставлять:
+Если нужно получить информацию по каждому продукту, можно добавить метод в Product, который будет собирать объект с данными(что-то вроде модели):
 
 ```typescript
 class Product extends BaseFragment {
@@ -270,3 +269,55 @@ interface ProductDetails {
     isDiscounted: boolean
 }
 ```
+
+А потом достаточно вызвать этот метод внутри `.map()` функции в нашем SearchResults :
+
+```typescript
+
+class SearchResults extends BaseArrayFragment<Product> {
+    // ... rest of the code
+
+    getAllProductDetails(): Promise<ProductDetails[]> {
+        return this.map(product => product.getProductDetails())
+    }
+}
+```
+
+Теперь в тестах можно получить массив со всеми деталями, и работать с ним:
+
+```typescript
+const res = await resultsPage.searchResults.getAllProductDetails()
+console.log('first product discounted?', res[0].isDiscounted)
+```
+
+
+А так же другие возможности, к примеру - выбор результата у которого цена больше указанной:
+
+```typescript
+class SearchResults extends BaseArrayFragment<Product> {
+    // ... rest of the code
+
+    async openProductWithPriceGreatherThan(minimalNeededPrice: number): Promise<ProductDetails> {
+        const found = this.find(async product => await product.price() > minimalNeededPrice)
+        const details = await found.getProductDetails()
+        await found.open()
+        return details
+    }
+```
+
+
+Если кто-то заинтересовался таким подходом для работы с коллекциями элементов, предлагаю подумать над реализацией следующего кода:
+
+```typescript
+const details = await resultsPage.searchResults
+                .findProduct()
+                .withManufacturer('ACME Corp.')
+                .withPriceGreatherThan(10.00)
+                .withDiscount(true)
+                .open();
+                  
+console.log('Opened product: ', details)
+```
+
+
+Спасибо за внимание!
