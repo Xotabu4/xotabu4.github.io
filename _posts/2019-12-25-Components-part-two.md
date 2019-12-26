@@ -186,7 +186,7 @@ const firstDiscounted = resultsPage.searchResults
     .filter(result => result.isDiscounted())
     .first()
 // Или аналогично используя .find()
-const firstDiscounted = resultsPage.searchResults.find(result => result.isDiscounted())
+const firstDiscounted = await resultsPage.searchResults.find(result => result.isDiscounted())
 
 await firstDiscounted.open()
 
@@ -228,7 +228,7 @@ class SearchResults extends BaseArrayFragment<Product> {
         super($$('#box-search-results article'), Product)
     }
 
-    getByProductName(neededName: string): Product {
+    getByProductName(neededName: string): Promise<Product> {
         return this.find(async product => {
             const productName = await product.name()
             return productName.includes(neededName)
@@ -298,7 +298,7 @@ class SearchResults extends BaseArrayFragment<Product> {
     // ... rest of the code
 
     async openProductWithPriceGreatherThan(minimalNeededPrice: number): Promise<ProductDetails> {
-        const found = this.find(async product => await product.price() > minimalNeededPrice)
+        const found = await this.find(async product => await product.price() > minimalNeededPrice)
         const details = await found.getProductDetails()
         await found.open()
         return details
@@ -306,7 +306,7 @@ class SearchResults extends BaseArrayFragment<Product> {
 ```
 
 
-Если кто-то заинтересовался таким подходом для работы с коллекциями элементов, предлагаю подумать над реализацией следующего кода:
+А как вам идея по использованию паттерна Builder для фильтрации элементов на странице?
 
 ```typescript
 const details = await resultsPage.searchResults
@@ -318,6 +318,3 @@ const details = await resultsPage.searchResults
                   
 console.log('Opened product: ', details)
 ```
-
-
-Спасибо за внимание!
