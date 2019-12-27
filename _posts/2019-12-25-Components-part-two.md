@@ -108,8 +108,9 @@ class Product extends BaseFragment {
     /**
      * Возвращаем true, если .sale стикер существует в этом компоненте
      */
-    public async isDiscounted(): Promise<boolean> {
-        return this.$('.sticker.sale').isDisplayed()
+    public isDiscounted(): Promise<boolean> {
+        // https://stackoverflow.com/questions/30099903/protractor-with-isdisplayed-i-get-nosuchelementerror-no-element-found-using
+        return this.$('.sticker.sale').isDisplayed().then(null, err => false)
     }
 
     public async name(): Promise<string> {
