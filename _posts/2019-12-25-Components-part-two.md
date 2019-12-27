@@ -109,7 +109,7 @@ class Product extends BaseFragment {
      * Возвращаем true, если .sale стикер существует в этом компоненте
      */
     public async isDiscounted(): Promise<boolean> {
-        return this.$('.sticker.sale').isPresent()
+        return this.$('.sticker.sale').isDisplayed()
     }
 
     public async name(): Promise<string> {
