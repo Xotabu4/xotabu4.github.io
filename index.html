@@ -376,6 +376,49 @@
     .stat-label { color: var(--muted); font-size: .78rem; font-weight: 700; line-height: 1.35; text-transform: uppercase; letter-spacing: .08em; }
     .community-note { margin: 2.5rem 0 0 auto; max-width: 52rem; color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.45rem); }
     .community-note strong { color: var(--ink); }
+    .social-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .75rem;
+      margin-top: 3rem;
+    }
+    .social-link {
+      min-height: 5.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.15rem;
+      color: var(--ink);
+      background: rgba(255,255,255,.025);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      text-decoration: none;
+      transition: transform .25s ease, color .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .social-link:hover, .social-link:focus-visible {
+      color: var(--acid);
+      background: var(--acid-soft);
+      border-color: rgba(201,243,91,.35);
+      transform: translateY(-4px);
+    }
+    .social-name { display: flex; align-items: center; gap: .8rem; font-size: .86rem; font-weight: 800; }
+    .social-icon {
+      width: 2rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      color: var(--bg);
+      background: var(--ink);
+      border-radius: 50%;
+      font-size: .66rem;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      transition: background .25s ease;
+    }
+    .social-link:hover .social-icon, .social-link:focus-visible .social-icon { background: var(--acid); }
+    .social-arrow { color: var(--dim); font-size: 1.05rem; transition: transform .25s ease, color .25s ease; }
+    .social-link:hover .social-arrow, .social-link:focus-visible .social-arrow { color: var(--acid); transform: translate(2px, -2px); }
 
     .service { background: linear-gradient(180deg, rgba(255,116,82,.035), transparent); }
     .service-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2.5rem, 8vw, 8rem); }
@@ -434,6 +477,8 @@
     footer { padding: 0 0 2.2rem; }
     .footer-inner { display: flex; justify-content: space-between; gap: 1rem; color: var(--dim); font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; }
     .footer-inner a { color: var(--muted); text-decoration: none; }
+    .footer-socials { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .9rem; }
+    .footer-inner a:hover, .footer-inner a:focus-visible { color: var(--acid); }
 
     .reveal { opacity: 0; transform: translateY(34px); transition: opacity .8s cubic-bezier(.2,.75,.2,1), transform .8s cubic-bezier(.2,.75,.2,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -453,6 +498,7 @@
       .change-grid { grid-template-columns: 1fr; }
       .change-card { min-height: 16rem; }
       .community-stats { grid-template-columns: repeat(2, 1fr); }
+      .social-links { grid-template-columns: repeat(2, 1fr); }
       .stat { border-bottom: 1px solid var(--line); }
       .stat:nth-child(2n) { border-right: 0; }
       .stat:last-child { grid-column: 1 / -1; border-bottom: 0; }
@@ -474,9 +520,11 @@
       .community-stats { grid-template-columns: 1fr; }
       .stat, .stat:nth-child(2n), .stat:last-child { grid-column: auto; border-right: 0; border-bottom: 1px solid var(--line); min-height: 9rem; }
       .stat:last-child { border-bottom: 0; }
+      .social-links { grid-template-columns: 1fr; }
       .value-chain i { display: none; }
       .cta-box { min-height: 32rem; border-radius: 1.4rem; }
       .footer-inner { flex-direction: column; }
+      .footer-socials { justify-content: flex-start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -643,6 +691,24 @@
           <div class="stat"><div class="stat-value"><span class="counter" data-target="100">100</span><span class="plus">+</span></div><div class="stat-label">talks, workshops<br>&amp; presentations</div></div>
         </div>
         <p class="community-note reveal"><strong>This is not a side-note.</strong> Community work is proof that I can create momentum across teams, levels, and companies — and translate deep technical ideas into action.</p>
+        <nav class="social-links reveal" aria-label="Oleksandr's social profiles and community channels">
+          <a class="social-link" href="https://www.youtube.com/@HOTtesting" target="_blank" rel="noopener noreferrer" aria-label="Hot Testing on YouTube">
+            <span class="social-name"><span class="social-icon" aria-hidden="true">YT</span>YouTube</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="social-link" href="https://t.me/hottestingchannel" target="_blank" rel="noopener noreferrer" aria-label="Hot Testing channel on Telegram">
+            <span class="social-name"><span class="social-icon" aria-hidden="true">TG</span>Telegram</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="social-link" href="https://www.linkedin.com/in/oleksandrkhotemskyi/" target="_blank" rel="noopener noreferrer" aria-label="Oleksandr Khotemskyi on LinkedIn">
+            <span class="social-name"><span class="social-icon" aria-hidden="true">IN</span>LinkedIn</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="social-link" href="https://github.com/xotabu4" target="_blank" rel="noopener noreferrer" aria-label="xotabu4 on GitHub">
+            <span class="social-name"><span class="social-icon" aria-hidden="true">GH</span>GitHub</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
+          </a>
+        </nav>
       </div>
     </section>
 
@@ -740,7 +806,12 @@
   <footer>
     <div class="container footer-inner">
       <span>Oleksandr Khotemskyi · Kyiv, Ukraine</span>
-      <span><a href="https://xotabu4.github.io/">xotabu4.github.io</a> · <span id="year">2026</span></span>
+      <span class="footer-socials">
+        <a href="https://xotabu4.github.io/">Website</a>
+        <a href="https://www.linkedin.com/in/oleksandrkhotemskyi/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/xotabu4" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span id="year">2026</span>
+      </span>
     </div>
   </footer>
 
