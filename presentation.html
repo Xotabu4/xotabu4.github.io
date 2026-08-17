@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="description" content="Oleksandr Khotemskyi — engineering leader focused on reliability, quality, AI-enabled engineering, and predictable software delivery.">
+  <meta property="og:title" content="Oleksandr Khotemskyi — Engineering Leadership for Systems That Matter">
+  <meta property="og:description" content="I turn complex software delivery into something teams can trust: calm releases, clear ownership, and fast recovery.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xotabu4.github.io/">
+  <meta property="og:image" content="https://xotabu4.github.io/avatar.jpg">
+  <title>Oleksandr Khotemskyi — Engineering Leader</title>
+  <style>
+    :root {
+      --ink: #f2f0e9;
+      --muted: #a7aaa2;
+      --dim: #6e726b;
+      --bg: #0b0d0c;
+      --bg-soft: #111512;
+      --panel: rgba(22, 27, 23, .72);
+      --line: rgba(240, 239, 229, .13);
+      --acid: #c9f35b;
+      --acid-soft: rgba(201, 243, 91, .13);
+      --signal: #ff7452;
+      --signal-soft: rgba(255, 116, 82, .12);
+      --max: 1180px;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 86% 9%, rgba(201, 243, 91, .08), transparent 27rem),
+        radial-gradient(circle at 12% 42%, rgba(255, 116, 82, .06), transparent 31rem),
+        var(--bg);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .26;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    ::selection { color: #0b0d0c; background: var(--acid); }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -5rem;
+      z-index: 100;
+      padding: .8rem 1rem;
+      color: var(--bg);
+      background: var(--acid);
+      border-radius: .5rem;
+      font-weight: 800;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    .progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 99;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--acid), var(--signal));
+      box-shadow: 0 0 24px rgba(201, 243, 91, .45);
+    }
+
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      padding: 1rem clamp(1rem, 4vw, 3rem);
+      transition: background .3s ease, border-color .3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(11, 13, 12, .84);
+      border-color: var(--line);
+      backdrop-filter: blur(18px);
+    }
+    .nav-inner {
+      width: min(100%, var(--max));
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+    .brand-mark {
+      width: 2rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      color: var(--bg);
+      background: var(--acid);
+      border-radius: 50%;
+      letter-spacing: -.08em;
+    }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.6vw, 2.2rem); }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--ink); }
+
+    .container { width: min(calc(100% - 2rem), var(--max)); margin-inline: auto; }
+    section { position: relative; padding: clamp(5rem, 11vw, 9.5rem) 0; }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      padding-top: 7rem;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 15%;
+      right: -8rem;
+      width: min(44vw, 34rem);
+      aspect-ratio: 1;
+      border: 1px solid rgba(201, 243, 91, .14);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5rem rgba(201,243,91,.018), 0 0 0 10rem rgba(201,243,91,.012);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(17rem, .75fr);
+      align-items: center;
+      gap: clamp(3rem, 8vw, 8rem);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      margin: 0 0 1.6rem;
+      color: var(--acid);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 2.4rem; height: 1px; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 12ch;
+      margin-bottom: 1.8rem;
+      font-family: var(--serif);
+      font-size: clamp(3.6rem, 8.3vw, 8.2rem);
+      font-weight: 400;
+      line-height: .9;
+      letter-spacing: -.065em;
+    }
+    .hero-line { display: block; }
+    .hero-line em { color: var(--acid); font-weight: 400; }
+    .hero-copy {
+      max-width: 42rem;
+      color: #c4c7bf;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      line-height: 1.55;
+    }
+    .hero-copy strong { color: var(--ink); font-weight: 650; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2.2rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      min-height: 3.3rem;
+      padding: .8rem 1.25rem;
+      border: 1px solid var(--acid);
+      border-radius: 999px;
+      color: var(--bg);
+      background: var(--acid);
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .button:hover, .button:focus-visible { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(201, 243, 91, .18); }
+    .button.secondary { color: var(--ink); background: transparent; border-color: var(--line); }
+    .button.secondary:hover, .button.secondary:focus-visible { border-color: var(--ink); box-shadow: none; }
+    .arrow { font-size: 1.2em; transition: transform .2s ease; }
+    .button:hover .arrow { transform: translate(3px, -3px); }
+
+    .portrait-wrap { position: relative; justify-self: end; width: min(100%, 24rem); }
+    .portrait-frame {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: .76;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(201,243,91,.2), transparent 32%),
+        linear-gradient(145deg, #1b221c, #0d100e);
+      border: 1px solid var(--line);
+      border-radius: 48% 48% 2rem 2rem;
+      box-shadow: 0 2rem 5rem rgba(0,0,0,.38);
+    }
+    .portrait-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(7,9,8,.45), transparent 48%);
+    }
+    .portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(.85) contrast(1.05);
+    }
+    .portrait-frame.missing .portrait { display: none; }
+    .portrait-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      color: rgba(242,240,233,.74);
+      font-family: var(--serif);
+      font-size: clamp(5rem, 12vw, 9rem);
+      letter-spacing: -.09em;
+    }
+    .portrait-frame.missing .portrait-fallback { display: grid; }
+    .portrait-note {
+      position: absolute;
+      right: -1.25rem;
+      bottom: 2.2rem;
+      z-index: 2;
+      width: 10.5rem;
+      padding: 1rem;
+      color: var(--bg);
+      background: var(--acid);
+      box-shadow: 0 1rem 2.5rem rgba(0,0,0,.28);
+      transform: rotate(-3deg);
+    }
+    .portrait-note span { display: block; font-size: .65rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .portrait-note strong { display: block; margin-top: .25rem; font-family: var(--serif); font-size: 1.35rem; line-height: 1.04; }
+    .scroll-hint {
+      position: absolute;
+      left: clamp(1rem, 4vw, 3rem);
+      bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--dim);
+      font-size: .67rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .scroll-hint::before { content: ""; width: 3.2rem; height: 1px; background: var(--dim); animation: scan 2.2s infinite; transform-origin: left; }
+    @keyframes scan { 0%, 100% { transform: scaleX(.25); opacity: .4; } 50% { transform: scaleX(1); opacity: 1; } }
+
+    .chapter-head { display: grid; grid-template-columns: .5fr 1.5fr; gap: 2rem; align-items: start; margin-bottom: clamp(3rem, 7vw, 6rem); }
+    .chapter-no { color: var(--acid); font-size: .72rem; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+    h2 {
+      max-width: 16ch;
+      margin-bottom: 1.3rem;
+      font-family: var(--serif);
+      font-size: clamp(2.75rem, 6vw, 5.6rem);
+      font-weight: 400;
+      line-height: .98;
+      letter-spacing: -.05em;
+    }
+    .lead { max-width: 47rem; color: var(--muted); font-size: clamp(1.08rem, 1.7vw, 1.3rem); }
+
+    .manifesto { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .manifesto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 8vw, 8rem); align-items: center; }
+    .big-quote {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.15rem, 4vw, 4.25rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+    .big-quote em { color: var(--acid); font-weight: 400; }
+    .manifesto-copy p { color: var(--muted); font-size: 1.06rem; }
+    .manifesto-copy p:last-child { margin-bottom: 0; }
+    .rule { width: 4rem; height: 2px; margin: 2rem 0; background: var(--signal); }
+
+    .change-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .change-card {
+      min-height: 20rem;
+      padding: clamp(1.4rem, 3vw, 2.2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      transition: transform .35s ease, border-color .35s ease, background .35s ease;
+    }
+    .change-card:hover { transform: translateY(-8px); border-color: rgba(201,243,91,.36); background: linear-gradient(145deg, rgba(201,243,91,.08), rgba(255,255,255,.015)); }
+    .card-label { color: var(--dim); font-size: .68rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    .change-card h3 { margin: auto 0 1rem; font-family: var(--serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 400; line-height: 1; letter-spacing: -.035em; }
+    .change-card p { margin-bottom: 0; color: var(--muted); }
+    .before { color: var(--signal); text-decoration: line-through; text-decoration-thickness: 1px; }
+    .after { color: var(--acid); }
+
+    .ai { overflow: hidden; background: var(--bg-soft); }
+    .ai::before {
+      content: "AI / AI / AI / AI / AI";
+      position: absolute;
+      left: -3vw;
+      bottom: -5rem;
+      white-space: nowrap;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,243,91,.08);
+      font-size: 20vw;
+      font-weight: 900;
+      letter-spacing: -.08em;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .ai-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 8vw, 8rem); }
+    .ai-principle {
+      align-self: start;
+      padding: 2rem;
+      background: var(--acid-soft);
+      border: 1px solid rgba(201,243,91,.24);
+      border-radius: 1.25rem;
+    }
+    .ai-principle .kicker { color: var(--acid); font-size: .7rem; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+    .ai-principle p { margin: 1rem 0 0; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.05; letter-spacing: -.035em; }
+    .stack-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+    .stack-item { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+    .stack-item span { color: var(--acid); font-family: var(--serif); font-size: 1.3rem; }
+    .stack-item h3 { margin-bottom: .25rem; font-size: 1rem; }
+    .stack-item p { margin-bottom: 0; color: var(--muted); font-size: .92rem; }
+
+    .community-stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: 1.25rem; overflow: hidden; }
+    .stat { min-height: 12rem; padding: 1.4rem; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); }
+    .stat:last-child { border-right: 0; }
+    .stat-value { font-family: var(--serif); font-size: clamp(2.4rem, 4vw, 4.2rem); line-height: 1; letter-spacing: -.05em; }
+    .stat-value .plus { color: var(--acid); }
+    .stat-label { color: var(--muted); font-size: .78rem; font-weight: 700; line-height: 1.35; text-transform: uppercase; letter-spacing: .08em; }
+    .community-note { margin: 2.5rem 0 0 auto; max-width: 52rem; color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.45rem); }
+    .community-note strong { color: var(--ink); }
+
+    .service { background: linear-gradient(180deg, rgba(255,116,82,.035), transparent); }
+    .service-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2.5rem, 8vw, 8rem); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ""; position: absolute; left: .34rem; top: .5rem; bottom: .5rem; width: 1px; background: var(--line); }
+    .timeline-item { position: relative; padding: 0 0 2.7rem 1rem; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ""; position: absolute; left: -1.84rem; top: .45rem; width: .68rem; aspect-ratio: 1; border: 2px solid var(--bg); border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 1px var(--signal); }
+    .timeline-item .year { color: var(--signal); font-size: .7rem; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    .timeline-item h3 { margin: .35rem 0 .45rem; font-family: var(--serif); font-size: 1.8rem; font-weight: 400; }
+    .timeline-item p { margin-bottom: 0; color: var(--muted); }
+    .service-quote { align-self: center; padding: 2rem; border-left: 2px solid var(--signal); }
+    .service-quote blockquote { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 3.1rem); line-height: 1.08; letter-spacing: -.03em; }
+    .service-quote p { margin: 1.5rem 0 0; color: var(--muted); }
+
+    .breadth-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 1rem; }
+    .breadth-panel { padding: clamp(1.5rem, 4vw, 3rem); background: var(--panel); border: 1px solid var(--line); border-radius: 1.25rem; }
+    .breadth-panel h3 { font-family: var(--serif); font-size: 2rem; font-weight: 400; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: .6rem; padding: 0; list-style: none; }
+    .tag-list li { padding: .55rem .8rem; color: #c8cbc3; background: rgba(255,255,255,.035); border: 1px solid var(--line); border-radius: 999px; font-size: .78rem; }
+    .truth-list { padding: 0; margin: 0; list-style: none; }
+    .truth-list li { padding: 1rem 0; border-top: 1px solid var(--line); color: var(--muted); }
+    .truth-list strong { color: var(--ink); }
+    .truth-list li:last-child { border-bottom: 1px solid var(--line); }
+
+    .miltech { overflow: hidden; }
+    .miltech-statement { max-width: 1020px; margin: auto; text-align: center; }
+    .miltech-statement h2 { max-width: 18ch; margin-inline: auto; }
+    .miltech-statement .lead { margin-inline: auto; }
+    .value-chain { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .7rem; margin: 3rem 0; }
+    .value-chain span { padding: .7rem 1rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .value-chain i { color: var(--acid); font-style: normal; }
+    .miltech-line { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 3.2rem); line-height: 1.15; letter-spacing: -.03em; }
+    .miltech-line em { color: var(--acid); font-weight: 400; }
+
+    .cta { padding-bottom: 3rem; }
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      min-height: min(74vh, 42rem);
+      display: grid;
+      place-items: center;
+      padding: clamp(2rem, 7vw, 6rem);
+      text-align: center;
+      background: var(--acid);
+      border-radius: 2rem;
+      color: var(--bg);
+    }
+    .cta-box::before { content: "LET'S TALK"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(11,13,12,.1); font-size: 15vw; font-weight: 900; letter-spacing: -.08em; }
+    .cta-content { position: relative; z-index: 1; }
+    .cta h2 { max-width: none; margin-bottom: 1rem; font-size: clamp(3.5rem, 8vw, 8rem); }
+    .cta p { max-width: 42rem; margin: 0 auto 2rem; font-size: clamp(1rem, 1.7vw, 1.3rem); }
+    .cta .button { color: var(--ink); background: var(--bg); border-color: var(--bg); }
+    .cta .button:hover { box-shadow: 0 12px 35px rgba(11,13,12,.23); }
+
+    footer { padding: 0 0 2.2rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 1rem; color: var(--dim); font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; }
+    .footer-inner a { color: var(--muted); text-decoration: none; }
+
+    .reveal { opacity: 0; transform: translateY(34px); transition: opacity .8s cubic-bezier(.2,.75,.2,1), transform .8s cubic-bezier(.2,.75,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+
+    :focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
+
+    @media (max-width: 900px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero-grid, .manifesto-grid, .ai-grid, .service-grid, .breadth-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 8rem; }
+      .hero-copy { max-width: 35rem; }
+      .portrait-wrap { justify-self: center; width: min(82vw, 24rem); }
+      .portrait-note { right: -.5rem; }
+      .chapter-head { grid-template-columns: 1fr; gap: .9rem; }
+      .change-grid { grid-template-columns: 1fr; }
+      .change-card { min-height: 16rem; }
+      .community-stats { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-bottom: 1px solid var(--line); }
+      .stat:nth-child(2n) { border-right: 0; }
+      .stat:last-child { grid-column: 1 / -1; border-bottom: 0; }
+      .service-quote { margin-top: 1rem; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(calc(100% - 1.25rem), var(--max)); }
+      section { padding-block: 5rem; }
+      .brand > span:last-child { display: none; }
+      .nav { padding-inline: .8rem; }
+      .nav-cta { padding: .7rem .85rem; border: 1px solid var(--line); border-radius: 999px; }
+      h1 { font-size: clamp(3.45rem, 17vw, 5rem); }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .button { width: 100%; }
+      .portrait-wrap { width: 88%; }
+      .portrait-note { right: -1rem; bottom: 1rem; transform: scale(.9) rotate(-3deg); }
+      .scroll-hint { display: none; }
+      .community-stats { grid-template-columns: 1fr; }
+      .stat, .stat:nth-child(2n), .stat:last-child { grid-column: auto; border-right: 0; border-bottom: 1px solid var(--line); min-height: 9rem; }
+      .stat:last-child { border-bottom: 0; }
+      .value-chain i { display: none; }
+      .cta-box { min-height: 32rem; border-radius: 1.4rem; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="brand-mark" aria-hidden="true">OK</span>
+        <span>Oleksandr Khotemskyi</span>
+      </a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#story">Story</a>
+        <a href="#impact">Impact</a>
+        <a href="#miltech">Defense tech</a>
+        <a class="nav-cta" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow reveal">Engineering leadership for systems that matter</p>
+          <h1 id="hero-title">
+            <span class="hero-line reveal">I make</span>
+            <span class="hero-line reveal reveal-delay-1">complex systems</span>
+            <span class="hero-line reveal reveal-delay-2"><em>feel boring.</em></span>
+          </h1>
+          <p class="hero-copy reveal reveal-delay-2">
+            I’m <strong>Oleksandr Khotemskyi</strong> — an engineering leader with deep quality roots. I turn fragile delivery into calm releases, unclear ownership into working systems, and AI hype into practical engineering leverage.
+          </p>
+          <div class="hero-actions reveal reveal-delay-2">
+            <a class="button" href="#story">Read the story <span class="arrow" aria-hidden="true">↓</span></a>
+            <a class="button secondary" href="https://wa.me/qr/UBXG2ZIWCF4QF1" target="_blank" rel="noopener noreferrer">Talk on WhatsApp <span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <div class="portrait-wrap reveal reveal-delay-1">
+          <div class="portrait-frame" id="portraitFrame">
+            <img class="portrait" src="avatar.jpg" alt="Portrait of Oleksandr Khotemskyi" onerror="this.parentElement.classList.add('missing')">
+            <div class="portrait-fallback" aria-hidden="true">OK</div>
+          </div>
+          <div class="portrait-note" aria-label="Based in Kyiv, Ukraine">
+            <span>Based in</span>
+            <strong>Kyiv,<br>Ukraine</strong>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">Scroll to explore</div>
+    </section>
+
+    <section class="manifesto" id="story" aria-labelledby="story-title">
+      <div class="container manifesto-grid">
+        <blockquote class="big-quote reveal" id="story-title">
+          A release should not be an event. It should be a <em>quiet consequence</em> of a system that works.
+        </blockquote>
+        <div class="manifesto-copy reveal reveal-delay-1">
+          <p>I started in software quality more than fifteen years ago. That gave me a useful instinct: look for the way a system can fail before it becomes someone else’s emergency.</p>
+          <div class="rule" aria-hidden="true"></div>
+          <p>Over time, the scope grew. Test automation became delivery architecture. Release checklists became operational design. Incident calls became on-call systems, observability, ownership, and faster recovery.</p>
+          <p><strong>The job was never “find more bugs.”</strong> It was to help engineering ship with confidence — and recover without panic when reality disagrees with the plan.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="impact" aria-labelledby="impact-title">
+      <div class="container">
+        <div class="chapter-head reveal">
+          <div class="chapter-no">01 / Make it reliable</div>
+          <div>
+            <h2 id="impact-title">From release theatre to release routine.</h2>
+            <p class="lead">I inherited a process built around chat messages, manual confirmation, and anxiety. We rebuilt it into a calm, documented workflow that needs minutes of attention — not a room full of people.</p>
+          </div>
+        </div>
+
+        <div class="change-grid">
+          <article class="change-card reveal">
+            <span class="card-label">Release operations</span>
+            <div>
+              <h3><span class="before">A production event</span><br><span class="after">A boring routine</span></h3>
+              <p>Automated workflows, clear validation, practical rollback paths, and ownership that survives handovers.</p>
+            </div>
+          </article>
+          <article class="change-card reveal reveal-delay-1">
+            <span class="card-label">Incident response</span>
+            <div>
+              <h3><span class="before">Everyone joins</span><br><span class="after">The right people act</span></h3>
+              <p>On-call rotation, access by responsibility, escalation, status communication, postmortems, and prevention work.</p>
+            </div>
+          </article>
+          <article class="change-card reveal reveal-delay-2">
+            <span class="card-label">Engineering enablement</span>
+            <div>
+              <h3><span class="before">More tooling</span><br><span class="after">More leverage</span></h3>
+              <p>Cost-aware CI/CD, testing infrastructure, and vendor decisions designed around outcomes — not platform fashion.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ai" aria-labelledby="ai-title">
+      <div class="container">
+        <div class="chapter-head reveal">
+          <div class="chapter-no">02 / Multiply the team</div>
+          <div>
+            <h2 id="ai-title">AI belongs inside the workflow.</h2>
+            <p class="lead">I’m not an ML researcher. I’m an experienced integrator: I connect existing AI capabilities to the places where engineers lose time, context, and attention.</p>
+          </div>
+        </div>
+
+        <div class="ai-grid">
+          <aside class="ai-principle reveal">
+            <span class="kicker">The principle</span>
+            <p>Use AI to extend judgment — never to hide the absence of it.</p>
+          </aside>
+          <div class="stack-list reveal reveal-delay-1">
+            <article class="stack-item">
+              <span aria-hidden="true">01</span>
+              <div><h3>Agents and reusable skills</h3><p>Purpose-built helpers for repeatable engineering tasks, with real context and clear guardrails.</p></div>
+            </article>
+            <article class="stack-item">
+              <span aria-hidden="true">02</span>
+              <div><h3>AI-assisted development</h3><p>Practical workflows for coding, investigation, documentation, test design, and requirements analysis.</p></div>
+            </article>
+            <article class="stack-item">
+              <span aria-hidden="true">03</span>
+              <div><h3>Team adoption</h3><p>Turning personal experiments into shared processes that engineers can trust, inspect, and improve.</p></div>
+            </article>
+            <article class="stack-item">
+              <span aria-hidden="true">04</span>
+              <div><h3>Evaluation over theatre</h3><p>Start with the bottleneck, measure the gain, keep humans accountable, and drop what does not help.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="community-title">
+      <div class="container">
+        <div class="chapter-head reveal">
+          <div class="chapter-no">03 / Lead beyond the org chart</div>
+          <div>
+            <h2 id="community-title">A decade of making engineers stronger.</h2>
+            <p class="lead">Hot Testing grew from a small Protractor.js group into a recognized Ukrainian quality engineering community. It taught me how to lead without authority: earn trust, explain hard things clearly, and keep showing up.</p>
+          </div>
+        </div>
+
+        <div class="community-stats reveal" aria-label="Hot Testing community impact">
+          <div class="stat"><div class="stat-value"><span class="counter" data-target="10">10</span><span class="plus">≈</span></div><div class="stat-label">years building<br>the community</div></div>
+          <div class="stat"><div class="stat-value"><span class="counter" data-target="3500">3,500</span><span class="plus">+</span></div><div class="stat-label">YouTube<br>subscribers</div></div>
+          <div class="stat"><div class="stat-value"><span class="counter" data-target="3600">3,600</span><span class="plus">+</span></div><div class="stat-label">Telegram<br>subscribers</div></div>
+          <div class="stat"><div class="stat-value"><span class="counter" data-target="1000">1,000</span><span class="plus">+</span></div><div class="stat-label">students<br>trained</div></div>
+          <div class="stat"><div class="stat-value"><span class="counter" data-target="100">100</span><span class="plus">+</span></div><div class="stat-label">talks, workshops<br>&amp; presentations</div></div>
+        </div>
+        <p class="community-note reveal"><strong>This is not a side-note.</strong> Community work is proof that I can create momentum across teams, levels, and companies — and translate deep technical ideas into action.</p>
+      </div>
+    </section>
+
+    <section class="service" aria-labelledby="service-title">
+      <div class="container">
+        <div class="chapter-head reveal">
+          <div class="chapter-no">04 / Know what “critical” means</div>
+          <div>
+            <h2 id="service-title">Technology is never just technology.</h2>
+            <p class="lead">My career also includes two environments where consequences are immediate: military service and intensive care. They changed how I think about clarity, responsibility, and the people on the other side of a system.</p>
+          </div>
+        </div>
+
+        <div class="service-grid">
+          <div class="timeline reveal">
+            <article class="timeline-item">
+              <span class="year">2022 · Ukraine</span>
+              <h3>State Border Guard Service</h3>
+              <p>Served as a soldier during the full-scale invasion, formally in a medical role, including service in the Bakhmut area. Worked with coordination, records, accountability, and logistics in a chaotic operational environment. Combatant status (UBD).</p>
+            </article>
+            <article class="timeline-item">
+              <span class="year">Medical background</span>
+              <h3>Diploma + ICU nursing</h3>
+              <p>Medical diploma as a junior specialist in nursing, followed by six months working in intensive care in Kyiv with postoperative and emergency patients.</p>
+            </article>
+          </div>
+          <aside class="service-quote reveal reveal-delay-1">
+            <blockquote>Pressure does not create a process. It reveals whether you built one.</blockquote>
+            <p>That is why I care about simple communication, explicit ownership, useful documentation, and systems people can operate when conditions are far from ideal.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="breadth-title">
+      <div class="container">
+        <div class="chapter-head reveal">
+          <div class="chapter-no">05 / Stay hands-on</div>
+          <div>
+            <h2 id="breadth-title">Enough depth to ask better questions.</h2>
+            <p class="lead">I lead through systems thinking and technical credibility. I can read the code, follow the request, inspect the pipeline, challenge the release plan, and work with specialists without pretending to replace them.</p>
+          </div>
+        </div>
+
+        <div class="breadth-grid">
+          <article class="breadth-panel reveal">
+            <h3>Built and operated around</h3>
+            <ul class="tag-list" aria-label="Technical experience">
+              <li>TypeScript / JavaScript</li><li>Node.js</li><li>Python</li><li>Playwright</li><li>Selenium</li><li>API &amp; contract testing</li><li>CI/CD</li><li>Release operations</li><li>Feature flags</li><li>Observability</li><li>Incident response</li><li>Docker</li><li>Cloud test infrastructure</li><li>Performance testing</li><li>Distributed test farms</li>
+            </ul>
+          </article>
+          <article class="breadth-panel reveal reveal-delay-1">
+            <h3>No inflated expertise</h3>
+            <ul class="truth-list">
+              <li><strong>Hardware &amp; embedded:</strong> home-level familiarity, not professional experience.</li>
+              <li><strong>Kubernetes:</strong> an informed user of Kubernetes-based environments, not a platform specialist.</li>
+              <li><strong>Security:</strong> experienced in cross-functional delivery and risk conversations, not positioned as a security engineer.</li>
+              <li><strong>AI:</strong> engineering integrator and workflow builder, not an ML scientist.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="miltech" id="miltech" aria-labelledby="miltech-title">
+      <div class="container miltech-statement reveal">
+        <p class="eyebrow">Why defense tech</p>
+        <h2 id="miltech-title">I know where I can be useful.</h2>
+        <p class="lead">Not by pretending to be an embedded engineer. By helping software-heavy defense products and engineering organizations become more reliable, more observable, faster to improve, and easier to operate under pressure.</p>
+        <div class="value-chain" aria-label="Value brought to defense technology teams">
+          <span>Find the risk</span><i aria-hidden="true">→</i>
+          <span>Build the guardrail</span><i aria-hidden="true">→</i>
+          <span>Clarify ownership</span><i aria-hidden="true">→</i>
+          <span>Ship calmly</span><i aria-hidden="true">→</i>
+          <span>Learn fast</span>
+        </div>
+        <p class="miltech-line">I bring <em>engineering discipline without bureaucracy</em> — and urgency without chaos.</p>
+      </div>
+    </section>
+
+    <section class="cta" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div class="cta-content">
+            <p class="eyebrow" style="color: currentColor; justify-content: center;">The shortest section</p>
+            <h2 id="contact-title">Want to contact me?</h2>
+            <p>If you are building technology where reliability has real consequences, I would like to hear what you are working on.</p>
+            <a class="button" href="https://wa.me/qr/UBXG2ZIWCF4QF1" target="_blank" rel="noopener noreferrer">Message me on WhatsApp <span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>Oleksandr Khotemskyi · Kyiv, Ukraine</span>
+      <span><a href="https://xotabu4.github.io/">xotabu4.github.io</a> · <span id="year">2026</span></span>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const progress = document.querySelector('.progress');
+      const nav = document.querySelector('.nav');
+
+      const updateScroll = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+        progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+        nav.classList.toggle('scrolled', window.scrollY > 24);
+      };
+      updateScroll();
+      window.addEventListener('scroll', updateScroll, { passive: true });
+
+      const revealElements = document.querySelectorAll('.reveal');
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        revealElements.forEach((element) => element.classList.add('visible'));
+      } else {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+        revealElements.forEach((element) => revealObserver.observe(element));
+      }
+
+      const stats = document.querySelector('.community-stats');
+      let counted = false;
+      const countUp = () => {
+        if (counted) return;
+        counted = true;
+        document.querySelectorAll('.counter').forEach((counter) => {
+          const target = Number(counter.dataset.target);
+          if (reducedMotion) {
+            counter.textContent = target.toLocaleString('en-US');
+            return;
+          }
+          const started = performance.now();
+          const duration = 1100;
+          const tick = (now) => {
+            const progressValue = Math.min(1, (now - started) / duration);
+            const eased = 1 - Math.pow(1 - progressValue, 3);
+            counter.textContent = Math.round(target * eased).toLocaleString('en-US');
+            if (progressValue < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        });
+      };
+      if (stats && 'IntersectionObserver' in window) {
+        const countObserver = new IntersectionObserver((entries, observer) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            countUp();
+            observer.disconnect();
+          }
+        }, { threshold: 0.3 });
+        countObserver.observe(stats);
+      } else {
+        countUp();
+      }
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
