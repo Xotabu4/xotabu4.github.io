@@ -11,6 +11,9 @@
   <meta property="og:url" content="https://xotabu4.github.io/">
   <meta property="og:image" content="https://xotabu4.github.io/avatar.jpg">
   <title>Oleksandr Khotemskyi — Engineering Leader</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <style>
     :root {
       --ink: #f2f0e9;
@@ -128,16 +131,95 @@
       letter-spacing: -.08em;
     }
     .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.6vw, 2.2rem); }
-    .nav-links a {
+    .nav-links a, .nav-flyout-btn {
       color: var(--muted);
+      background: none;
+      border: 0;
+      padding: 0;
       text-decoration: none;
+      font-family: inherit;
       font-size: .76rem;
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
+      cursor: pointer;
       transition: color .2s ease;
     }
-    .nav-links a:hover, .nav-links a:focus-visible { color: var(--ink); }
+    .nav-links a:hover, .nav-links a:focus-visible,
+    .nav-flyout-btn:hover, .nav-flyout-btn:focus-visible { color: var(--ink); }
+    .nav-cta { color: var(--ink); }
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.4rem;
+      padding: .55rem .9rem;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .nav-flyout { position: relative; }
+    .nav-flyout-btn { display: inline-flex; align-items: center; gap: .4rem; }
+    .nav-flyout-btn i {
+      font-style: normal;
+      font-size: .7em;
+      color: var(--acid);
+      transition: transform .2s ease;
+    }
+    .nav-flyout.is-open .nav-flyout-btn i,
+    .nav-flyout:hover .nav-flyout-btn i { transform: rotate(180deg); }
+    .nav-submenu {
+      position: absolute;
+      top: calc(100% + .85rem);
+      right: 0;
+      z-index: 60;
+      display: grid;
+      gap: .2rem;
+      min-width: 19.5rem;
+      padding: .55rem;
+      background: rgba(11, 13, 12, .94);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      box-shadow: 0 1.4rem 3rem rgba(0,0,0,.35);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(.45rem);
+      transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+    }
+    .nav-flyout:hover .nav-submenu,
+    .nav-flyout:focus-within .nav-submenu,
+    .nav-flyout.is-open .nav-submenu {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+    .nav-submenu a {
+      display: grid;
+      grid-template-columns: 1.7rem 1fr;
+      align-items: baseline;
+      gap: .65rem;
+      padding: .75rem .85rem;
+      border-radius: .75rem;
+      text-transform: none;
+      letter-spacing: .02em;
+      font-size: .92rem;
+      font-weight: 650;
+    }
+    .nav-submenu a:hover, .nav-submenu a:focus-visible { background: rgba(201,243,91,.08); color: var(--ink); }
+    .nav-submenu b {
+      color: var(--acid);
+      font-family: var(--serif);
+      font-size: .78rem;
+      font-weight: 400;
+    }
 
     .container { width: min(calc(100% - 2rem), var(--max)); margin-inline: auto; }
     section { position: relative; padding: clamp(5rem, 11vw, 9.5rem) 0; }
@@ -681,7 +763,56 @@
     :focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
 
     @media (max-width: 900px) {
-      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .nav.is-open, .nav.scrolled {
+        background: rgba(11, 13, 12, .94);
+        border-color: var(--line);
+        backdrop-filter: blur(18px);
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: .8rem;
+        right: .8rem;
+        top: calc(100% + .35rem);
+        flex-direction: column;
+        align-items: stretch;
+        gap: .15rem;
+        padding: .8rem;
+        background: rgba(11, 13, 12, .96);
+        border: 1px solid var(--line);
+        border-radius: 1.1rem;
+        box-shadow: 0 1.2rem 2.8rem rgba(0,0,0,.35);
+      }
+      .nav.is-open .nav-links { display: flex; }
+      .nav-links > a, .nav-flyout-btn {
+        display: flex;
+        align-items: center;
+        min-height: 2.8rem;
+        padding: .7rem .85rem;
+        justify-content: space-between;
+      }
+      .nav-flyout { width: 100%; }
+      .nav-cta {
+        margin-top: .35rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        justify-content: center;
+      }
+      .nav-flyout .nav-submenu {
+        position: static;
+        min-width: 0;
+        margin: 0 0 .4rem;
+        padding: .15rem 0 .15rem .5rem;
+        background: none;
+        border: 0;
+        border-left: 1px solid var(--line);
+        border-radius: 0;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
       .hero-grid, .manifesto-grid, .ai-grid, .service-grid, .breadth-grid, .cyborg-card { grid-template-columns: 1fr; }
       .hero { padding-top: 8rem; }
       .hero-copy { max-width: 35rem; }
@@ -705,7 +836,6 @@
       section { padding-block: 5rem; }
       .brand > span:last-child { display: none; }
       .nav { padding-inline: .8rem; }
-      .nav-cta { padding: .7rem .85rem; border: 1px solid var(--line); border-radius: 999px; }
       h1 { font-size: clamp(3.45rem, 17vw, 5rem); }
       .hero-actions { align-items: stretch; flex-direction: column; }
       .button { width: 100%; }
@@ -738,12 +868,23 @@
         <span class="brand-mark" aria-hidden="true">OK</span>
         <span>Oleksandr Khotemskyi</span>
       </a>
-      <nav class="nav-links" aria-label="Page sections">
+      <nav class="nav-links" id="site-nav" aria-label="Page sections">
         <a href="#story">Story</a>
-        <a href="#impact">Impact</a>
-        <a href="#stakes">High-stakes work</a>
+        <div class="nav-flyout">
+          <button class="nav-flyout-btn" type="button" aria-expanded="false" aria-controls="work-menu">
+            Work <i aria-hidden="true">▾</i>
+          </button>
+          <div class="nav-submenu" id="work-menu">
+            <a href="#impact"><b>01</b><span>Reliability</span></a>
+            <a href="#ai"><b>02</b><span>AI in the workflow</span></a>
+            <a href="#cyborg"><b>03</b><span>CyborgTests</span></a>
+            <a href="#community"><b>04</b><span>Hot Testing</span></a>
+          </div>
+        </div>
+        <a href="#stakes">High-stakes</a>
         <a class="nav-cta" href="#contact">Contact</a>
       </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     </div>
   </header>
 
@@ -830,7 +971,7 @@
       </div>
     </section>
 
-    <section class="ai" aria-labelledby="ai-title">
+    <section class="ai" id="ai" aria-labelledby="ai-title">
       <div class="container">
         <div class="chapter-head reveal">
           <div class="chapter-no">02 / Multiply the team</div>
@@ -1148,6 +1289,35 @@
       }
 
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      const toggle = document.querySelector('.nav-toggle');
+      const flyout = document.querySelector('.nav-flyout');
+      const flyoutBtn = document.querySelector('.nav-flyout-btn');
+      const closeNav = () => {
+        nav.classList.remove('is-open');
+        flyout.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        flyoutBtn.setAttribute('aria-expanded', 'false');
+      };
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(open));
+        if (!open) flyout.classList.remove('is-open');
+      });
+      flyoutBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const open = flyout.classList.toggle('is-open');
+        flyoutBtn.setAttribute('aria-expanded', String(open));
+      });
+      nav.querySelectorAll('.nav-links a').forEach((link) => {
+        link.addEventListener('click', closeNav);
+      });
+      document.addEventListener('click', (event) => {
+        if (!nav.contains(event.target)) closeNav();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeNav();
+      });
     })();
   </script>
 </body>
