@@ -597,7 +597,12 @@
       letter-spacing: .12em;
       text-transform: uppercase;
     }
-    .channel-grid { display: grid; grid-template-rows: 1fr 1fr; gap: 1rem; }
+    .channel-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .channel-card:first-child { grid-column: 1 / -1; }
     .channel-card {
       position: relative;
       overflow: hidden;
@@ -823,6 +828,8 @@
       .change-card { min-height: 16rem; }
       .community-stats { grid-template-columns: repeat(2, 1fr); }
       .ht-stage { grid-template-columns: 1fr; }
+      .channel-grid { grid-template-columns: 1fr; }
+      .channel-card:first-child { grid-column: auto; }
       .ht-poster { min-height: 22rem; }
       .contact-personal { grid-template-columns: 1fr; }
       .stat { border-bottom: 1px solid var(--line); }
@@ -1068,6 +1075,22 @@
             <p>Ukrainian quality engineering community</p>
           </aside>
           <nav class="channel-grid">
+            <a class="channel-card" href="https://www.hottestingcommunity.com/" target="_blank" rel="noopener noreferrer">
+              <div class="channel-card-top">
+                <span class="channel-brand">
+                  <span class="channel-logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20m-1 17.93A8 8 0 0 1 4 12c0-.62.08-1.21.21-1.79L9 15v1a2 2 0 0 0 2 2zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3a1 1 0 0 0-1-1H8V10h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.41A8 8 0 0 1 20 12a7.96 7.96 0 0 1-2.1 5.39"/></svg>
+                  </span>
+                  Website
+                </span>
+                <span class="channel-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div>
+                <h3>The community <em>home.</em></h3>
+                <p class="channel-copy">Who Hot Testing is, how to join, and the courses we run — the public face of the community, not a personal page.</p>
+              </div>
+              <span class="channel-handle">hottestingcommunity.com</span>
+            </a>
             <a class="channel-card" href="https://www.youtube.com/@HOTtesting" target="_blank" rel="noopener noreferrer">
               <div class="channel-card-top">
                 <span class="channel-brand">
