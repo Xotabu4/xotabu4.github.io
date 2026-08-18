@@ -368,6 +368,71 @@
     .stack-item h3 { margin-bottom: .25rem; font-size: 1rem; }
     .stack-item p { margin-bottom: 0; color: var(--muted); font-size: .92rem; }
 
+    .cyborg-card {
+      display: grid;
+      grid-template-columns: minmax(16rem, .92fr) minmax(0, 1.08fr);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+    }
+    .cyborg-photo {
+      position: relative;
+      min-height: 18rem;
+      overflow: hidden;
+      background: #140c18;
+    }
+    .cyborg-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: 18rem;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: saturate(.92) contrast(1.04);
+    }
+    .cyborg-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+      padding: clamp(1.5rem, 3.5vw, 2.4rem);
+    }
+    .cyborg-copy h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+    .cyborg-copy p { margin: 0; color: var(--muted); }
+    .cyborg-award {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+      padding: .95rem 1rem;
+      color: var(--ink);
+      background: var(--acid-soft);
+      border: 1px solid rgba(201,243,91,.24);
+      border-radius: .9rem;
+      text-decoration: none;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+    .cyborg-award:hover, .cyborg-award:focus-visible {
+      border-color: rgba(201,243,91,.5);
+      transform: translateY(-2px);
+    }
+    .cyborg-award strong { display: block; color: var(--acid); font-size: .68rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .cyborg-award em {
+      display: block;
+      margin-top: .25rem;
+      color: var(--muted);
+      font-size: .9rem;
+      font-style: normal;
+    }
+    .cyborg-award .arrow { margin-left: auto; align-self: center; color: var(--acid); font-size: 1.1rem; }
+    .cyborg-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .2rem; }
+
     .community-stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: 1.25rem; overflow: hidden; }
     .stat { min-height: 12rem; padding: 1.4rem; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); }
     .stat:last-child { border-right: 0; }
@@ -376,49 +441,177 @@
     .stat-label { color: var(--muted); font-size: .78rem; font-weight: 700; line-height: 1.35; text-transform: uppercase; letter-spacing: .08em; }
     .community-note { margin: 2.5rem 0 0 auto; max-width: 52rem; color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.45rem); }
     .community-note strong { color: var(--ink); }
-    .social-links {
+
+    .community { overflow: hidden; }
+    .community::before {
+      content: "";
+      position: absolute;
+      right: -8rem;
+      bottom: -10rem;
+      width: 28rem;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(225, 29, 46, .16), transparent 68%);
+      pointer-events: none;
+    }
+    .ht-stage {
+      --ht: #e11d2e;
+      --ht-cream: #f3eee4;
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: .75rem;
+      grid-template-columns: minmax(16rem, .82fr) minmax(0, 1.18fr);
+      gap: 1rem;
       margin-top: 3rem;
     }
-    .social-link {
-      min-height: 5.25rem;
+    .ht-poster {
+      position: relative;
+      overflow: hidden;
+      min-height: 100%;
+      display: grid;
+      align-content: end;
+      padding: 1.35rem 1.35rem 1.6rem;
+      color: #1a0c0c;
+      background: var(--ht-cream);
+      border-radius: 1.25rem;
+      isolation: isolate;
+    }
+    .ht-stamp {
+      position: absolute;
+      top: .85rem;
+      left: .85rem;
+      z-index: 2;
+      width: 4.4rem;
+      transform: rotate(-9deg);
+      border-radius: .7rem;
+      box-shadow: 0 .6rem 1.4rem rgba(26, 12, 12, .16);
+    }
+    .ht-mascot {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 17rem);
+      margin: 2.8rem auto .4rem;
+      mix-blend-mode: multiply;
+    }
+    .ht-name {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: #e11d2e;
+      text-align: center;
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .ht-poster p {
+      position: relative;
+      z-index: 1;
+      margin: .85rem 0 0;
+      text-align: center;
+      color: rgba(26, 12, 12, .62);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .channel-grid { display: grid; grid-template-rows: 1fr 1fr; gap: 1rem; }
+    .channel-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 13.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.1rem;
+      padding: 1.45rem 1.5rem 1.4rem;
+      color: var(--ink);
+      background: linear-gradient(145deg, rgba(255,255,255,.05), rgba(255,255,255,.012));
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      text-decoration: none;
+      transition: transform .3s ease, border-color .3s ease, background .3s ease;
+    }
+    .channel-card:hover, .channel-card:focus-visible {
+      transform: translateY(-6px);
+      border-color: rgba(225, 29, 46, .45);
+      background: linear-gradient(145deg, rgba(225, 29, 46, .1), rgba(255,255,255,.02));
+    }
+    .channel-card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 1rem 1.15rem;
-      color: var(--ink);
-      background: rgba(255,255,255,.025);
-      border: 1px solid var(--line);
-      border-radius: 1rem;
-      text-decoration: none;
-      transition: transform .25s ease, color .25s ease, background .25s ease, border-color .25s ease;
     }
-    .social-link:hover, .social-link:focus-visible {
-      color: var(--acid);
-      background: var(--acid-soft);
-      border-color: rgba(201,243,91,.35);
-      transform: translateY(-4px);
+    .channel-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
     }
-    .social-name { display: flex; align-items: center; gap: .8rem; font-size: .86rem; font-weight: 800; }
-    .social-icon {
-      width: 2rem;
+    .channel-logo {
+      width: 2.35rem;
       aspect-ratio: 1;
       display: grid;
       place-items: center;
-      color: var(--bg);
-      background: var(--ink);
-      border-radius: 50%;
-      font-size: .66rem;
-      font-weight: 900;
-      letter-spacing: -.04em;
-      transition: background .25s ease;
+      color: var(--ht-cream, #f3eee4);
+      background: #e11d2e;
+      border-radius: .7rem;
     }
-    .social-link:hover .social-icon, .social-link:focus-visible .social-icon { background: var(--acid); }
-    .social-arrow { color: var(--dim); font-size: 1.05rem; transition: transform .25s ease, color .25s ease; }
-    .social-link:hover .social-arrow, .social-link:focus-visible .social-arrow { color: var(--acid); transform: translate(2px, -2px); }
+    .channel-logo svg { width: 1.15rem; height: 1.15rem; }
+    .channel-arrow { color: var(--dim); font-size: 1.2rem; transition: transform .25s ease, color .25s ease; }
+    .channel-card:hover .channel-arrow, .channel-card:focus-visible .channel-arrow { color: #ff6b73; transform: translate(3px, -3px); }
+    .channel-card h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 2.6vw, 2.35rem);
+      font-weight: 400;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+    }
+    .channel-card h3 em { color: #ff6b73; font-style: normal; }
+    .channel-copy { margin: .55rem 0 0; max-width: 34rem; color: var(--muted); font-size: .95rem; }
+    .channel-handle {
+      color: var(--dim);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .channel-card:hover .channel-handle { color: #ff9aa0; }
+
+    .contact-personal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      width: min(100%, 34rem);
+      margin: 1.6rem auto 0;
+    }
+    .contact-personal-link {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      min-height: 3.4rem;
+      padding: .7rem .95rem;
+      color: var(--bg);
+      background: rgba(11, 13, 12, .08);
+      border: 1px solid rgba(11, 13, 12, .16);
+      border-radius: 999px;
+      text-decoration: none;
+      text-align: left;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .contact-personal-link:hover, .contact-personal-link:focus-visible {
+      background: rgba(11, 13, 12, .14);
+      transform: translateY(-2px);
+    }
+    .contact-personal-link svg { width: 1.15rem; height: 1.15rem; flex: none; }
+    .contact-personal-link span { display: grid; line-height: 1.15; }
+    .contact-personal-link strong { font-size: .78rem; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; }
+    .contact-personal-link small { color: rgba(11, 13, 12, .62); font-size: .68rem; font-weight: 650; }
 
     .service { background: linear-gradient(180deg, rgba(255,116,82,.035), transparent); }
     .service-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2.5rem, 8vw, 8rem); }
@@ -444,15 +637,15 @@
     .truth-list strong { color: var(--ink); }
     .truth-list li:last-child { border-bottom: 1px solid var(--line); }
 
-    .miltech { overflow: hidden; }
-    .miltech-statement { max-width: 1020px; margin: auto; text-align: center; }
-    .miltech-statement h2 { max-width: 18ch; margin-inline: auto; }
-    .miltech-statement .lead { margin-inline: auto; }
+    .stakes { overflow: hidden; }
+    .stakes-statement { max-width: 1020px; margin: auto; text-align: center; }
+    .stakes-statement h2 { max-width: 18ch; margin-inline: auto; }
+    .stakes-statement .lead { margin-inline: auto; }
     .value-chain { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .7rem; margin: 3rem 0; }
     .value-chain span { padding: .7rem 1rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
     .value-chain i { color: var(--acid); font-style: normal; }
-    .miltech-line { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 3.2rem); line-height: 1.15; letter-spacing: -.03em; }
-    .miltech-line em { color: var(--acid); font-weight: 400; }
+    .stakes-line { margin: 0; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 3.2rem); line-height: 1.15; letter-spacing: -.03em; }
+    .stakes-line em { color: var(--acid); font-weight: 400; }
 
     .cta { padding-bottom: 3rem; }
     .cta-box {
@@ -489,7 +682,7 @@
 
     @media (max-width: 900px) {
       .nav-links a:not(.nav-cta) { display: none; }
-      .hero-grid, .manifesto-grid, .ai-grid, .service-grid, .breadth-grid { grid-template-columns: 1fr; }
+      .hero-grid, .manifesto-grid, .ai-grid, .service-grid, .breadth-grid, .cyborg-card { grid-template-columns: 1fr; }
       .hero { padding-top: 8rem; }
       .hero-copy { max-width: 35rem; }
       .portrait-wrap { justify-self: center; width: min(82vw, 24rem); }
@@ -498,7 +691,9 @@
       .change-grid { grid-template-columns: 1fr; }
       .change-card { min-height: 16rem; }
       .community-stats { grid-template-columns: repeat(2, 1fr); }
-      .social-links { grid-template-columns: repeat(2, 1fr); }
+      .ht-stage { grid-template-columns: 1fr; }
+      .ht-poster { min-height: 22rem; }
+      .contact-personal { grid-template-columns: 1fr; }
       .stat { border-bottom: 1px solid var(--line); }
       .stat:nth-child(2n) { border-right: 0; }
       .stat:last-child { grid-column: 1 / -1; border-bottom: 0; }
@@ -520,7 +715,6 @@
       .community-stats { grid-template-columns: 1fr; }
       .stat, .stat:nth-child(2n), .stat:last-child { grid-column: auto; border-right: 0; border-bottom: 1px solid var(--line); min-height: 9rem; }
       .stat:last-child { border-bottom: 0; }
-      .social-links { grid-template-columns: 1fr; }
       .value-chain i { display: none; }
       .cta-box { min-height: 32rem; border-radius: 1.4rem; }
       .footer-inner { flex-direction: column; }
@@ -547,7 +741,7 @@
       <nav class="nav-links" aria-label="Page sections">
         <a href="#story">Story</a>
         <a href="#impact">Impact</a>
-        <a href="#miltech">Defense tech</a>
+        <a href="#stakes">High-stakes work</a>
         <a class="nav-cta" href="#contact">Contact</a>
       </nav>
     </div>
@@ -673,10 +867,43 @@
       </div>
     </section>
 
-    <section aria-labelledby="community-title">
+    <section class="cyborg" id="cyborg" aria-labelledby="cyborg-title">
       <div class="container">
         <div class="chapter-head reveal">
-          <div class="chapter-no">03 / Lead beyond the org chart</div>
+          <div class="chapter-no">03 / Founder, CyborgTests</div>
+          <div>
+            <h2 id="cyborg-title">I shipped the workflow I kept needing.</h2>
+            <p class="lead">I founded CyborgTests: a Playwright-native way to keep human judgment inside an automated test. Not a second tool. Not AI theatre. A pause where eyes still matter — then the run continues.</p>
+          </div>
+        </div>
+
+        <article class="cyborg-card reveal">
+          <div class="cyborg-photo">
+            <img src="brand/dou-awards-2026.png" alt="CyborgTests team on stage at the DOU Awards 2026 in Kyiv, holding trophies in front of the DOU screen.">
+          </div>
+          <div class="cyborg-copy">
+            <span class="card-label">Founder</span>
+            <h3>Manual where it counts. Automated everywhere else.</h3>
+            <p>Some checks cannot be fully scripted — layout, video, the odd case that still needs a person. CyborgTests lets a test run to that point, wait for a human, and continue. One flow, one report.</p>
+            <a class="cyborg-award" href="https://dou.ua/awards-2026/" target="_blank" rel="noopener noreferrer">
+              <span>
+                <strong>DOU Awards 2026</strong>
+                <em>Winner — Startup with the Biggest Potential.</em>
+              </span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+            <div class="cyborg-actions">
+              <a class="button secondary" href="https://cyborgtests.com/" target="_blank" rel="noopener noreferrer">CyborgTests.com <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="community" id="community" aria-labelledby="community-title">
+      <div class="container">
+        <div class="chapter-head reveal">
+          <div class="chapter-no">04 / Lead beyond the org chart</div>
           <div>
             <h2 id="community-title">A decade of making engineers stronger.</h2>
             <p class="lead">Hot Testing grew from a small Protractor.js group into a recognized Ukrainian quality engineering community. It taught me how to lead without authority: earn trust, explain hard things clearly, and keep showing up.</p>
@@ -691,31 +918,56 @@
           <div class="stat"><div class="stat-value"><span class="counter" data-target="100">100</span><span class="plus">+</span></div><div class="stat-label">talks, workshops<br>&amp; presentations</div></div>
         </div>
         <p class="community-note reveal"><strong>This is not a side-note.</strong> Community work is proof that I can create momentum across teams, levels, and companies — and translate deep technical ideas into action.</p>
-        <nav class="social-links reveal" aria-label="Oleksandr's social profiles and community channels">
-          <a class="social-link" href="https://www.youtube.com/@HOTtesting" target="_blank" rel="noopener noreferrer" aria-label="Hot Testing on YouTube">
-            <span class="social-name"><span class="social-icon" aria-hidden="true">YT</span>YouTube</span>
-            <span class="social-arrow" aria-hidden="true">↗</span>
-          </a>
-          <a class="social-link" href="https://t.me/hottestingchannel" target="_blank" rel="noopener noreferrer" aria-label="Hot Testing channel on Telegram">
-            <span class="social-name"><span class="social-icon" aria-hidden="true">TG</span>Telegram</span>
-            <span class="social-arrow" aria-hidden="true">↗</span>
-          </a>
-          <a class="social-link" href="https://www.linkedin.com/in/oleksandrkhotemskyi/" target="_blank" rel="noopener noreferrer" aria-label="Oleksandr Khotemskyi on LinkedIn">
-            <span class="social-name"><span class="social-icon" aria-hidden="true">IN</span>LinkedIn</span>
-            <span class="social-arrow" aria-hidden="true">↗</span>
-          </a>
-          <a class="social-link" href="https://github.com/xotabu4" target="_blank" rel="noopener noreferrer" aria-label="xotabu4 on GitHub">
-            <span class="social-name"><span class="social-icon" aria-hidden="true">GH</span>GitHub</span>
-            <span class="social-arrow" aria-hidden="true">↗</span>
-          </a>
-        </nav>
+
+        <div class="ht-stage reveal" aria-label="Hot Testing community channels">
+          <aside class="ht-poster">
+            <img class="ht-stamp" src="brand/hot-testing-community.png" alt="" aria-hidden="true">
+            <img class="ht-mascot" src="brand/hot-testing-mascot.png" alt="Hot Testing mascot — an angry red monitor">
+            <strong class="ht-name">Hot Testing</strong>
+            <p>Ukrainian quality engineering community</p>
+          </aside>
+          <nav class="channel-grid">
+            <a class="channel-card" href="https://www.youtube.com/@HOTtesting" target="_blank" rel="noopener noreferrer">
+              <div class="channel-card-top">
+                <span class="channel-brand">
+                  <span class="channel-logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M23.5 6.2a3.05 3.05 0 0 0-2.14-2.16C19.4 3.6 12 3.6 12 3.6s-7.4 0-9.36.44A3.05 3.05 0 0 0 .5 6.2 32 32 0 0 0 0 12a32 32 0 0 0 .5 5.8 3.05 3.05 0 0 0 2.14 2.16C4.6 20.4 12 20.4 12 20.4s7.4 0 9.36-.44a3.05 3.05 0 0 0 2.14-2.16A32 32 0 0 0 24 12a32 32 0 0 0-.5-5.8zM9.75 15.57V8.43L15.84 12z"/></svg>
+                  </span>
+                  YouTube
+                </span>
+                <span class="channel-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div>
+                <h3>Streams and <em>recorded talks.</em></h3>
+                <p class="channel-copy">The Hot Testing channel I host: live streams, workshops, and videos on quality engineering, Playwright, and the unglamorous parts of shipping software.</p>
+              </div>
+              <span class="channel-handle">youtube.com/@HOTtesting</span>
+            </a>
+            <a class="channel-card" href="https://t.me/hottestingchannel" target="_blank" rel="noopener noreferrer">
+              <div class="channel-card-top">
+                <span class="channel-brand">
+                  <span class="channel-logo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M21.9 3.4 2.7 10.8c-1.3.5-1.3 1.2-.2 1.5l4.9 1.5 11.4-7.2c.5-.3 1-.2.6.2l-9.2 8.3-.3 5.1c.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.6.2 1.8-.9l3.3-15.5c.3-1.4-.5-2-1.5-1.6z"/></svg>
+                  </span>
+                  Telegram
+                </span>
+                <span class="channel-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div>
+                <h3>The community <em>channel.</em></h3>
+                <p class="channel-copy">Announcements, notes from streams, and the ongoing conversation of Hot Testing — where the community actually lives between videos.</p>
+              </div>
+              <span class="channel-handle">t.me/hottestingchannel</span>
+            </a>
+          </nav>
+        </div>
       </div>
     </section>
 
     <section class="service" aria-labelledby="service-title">
       <div class="container">
         <div class="chapter-head reveal">
-          <div class="chapter-no">04 / Know what “critical” means</div>
+          <div class="chapter-no">05 / Know what “critical” means</div>
           <div>
             <h2 id="service-title">Technology is never just technology.</h2>
             <p class="lead">My career also includes two environments where consequences are immediate: military service and intensive care. They changed how I think about clarity, responsibility, and the people on the other side of a system.</p>
@@ -746,7 +998,7 @@
     <section aria-labelledby="breadth-title">
       <div class="container">
         <div class="chapter-head reveal">
-          <div class="chapter-no">05 / Stay hands-on</div>
+          <div class="chapter-no">06 / Stay hands-on</div>
           <div>
             <h2 id="breadth-title">Enough depth to ask better questions.</h2>
             <p class="lead">I lead through systems thinking and technical credibility. I can read the code, follow the request, inspect the pipeline, challenge the release plan, and work with specialists without pretending to replace them.</p>
@@ -773,19 +1025,19 @@
       </div>
     </section>
 
-    <section class="miltech" id="miltech" aria-labelledby="miltech-title">
-      <div class="container miltech-statement reveal">
-        <p class="eyebrow">Why defense tech</p>
-        <h2 id="miltech-title">I know where I can be useful.</h2>
-        <p class="lead">Not by pretending to be an embedded engineer. By helping software-heavy defense products and engineering organizations become more reliable, more observable, faster to improve, and easier to operate under pressure.</p>
-        <div class="value-chain" aria-label="Value brought to defense technology teams">
+    <section class="stakes" id="stakes" aria-labelledby="stakes-title">
+      <div class="container stakes-statement reveal">
+        <p class="eyebrow">Why this matters</p>
+        <h2 id="stakes-title">I know where I can be useful.</h2>
+        <p class="lead">Not by pretending to be an embedded engineer. By helping software-heavy products and engineering teams where failure has real cost become more reliable, more observable, faster to improve, and easier to operate under pressure.</p>
+        <div class="value-chain" aria-label="Value brought to high-stakes engineering teams">
           <span>Find the risk</span><i aria-hidden="true">→</i>
           <span>Build the guardrail</span><i aria-hidden="true">→</i>
           <span>Clarify ownership</span><i aria-hidden="true">→</i>
           <span>Ship calmly</span><i aria-hidden="true">→</i>
           <span>Learn fast</span>
         </div>
-        <p class="miltech-line">I bring <em>engineering discipline without bureaucracy</em> — and urgency without chaos.</p>
+        <p class="stakes-line">I bring <em>engineering discipline without bureaucracy</em> — and urgency without chaos.</p>
       </div>
     </section>
 
@@ -797,6 +1049,22 @@
             <h2 id="contact-title">Want to contact me?</h2>
             <p>If you are building technology where reliability has real consequences, I would like to hear what you are working on.</p>
             <a class="button" href="https://wa.me/qr/UBXG2ZIWCF4QF1" target="_blank" rel="noopener noreferrer">Message me on WhatsApp <span class="arrow" aria-hidden="true">↗</span></a>
+            <nav class="contact-personal" aria-label="Personal profiles">
+              <a class="contact-personal-link" href="https://www.linkedin.com/in/oleksandrkhotemskyi/" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12M7.12 20.45H3.56V9h3.56zM22 0H2C.9 0 0 .9 0 2v20c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2"/></svg>
+                <span>
+                  <strong>LinkedIn</strong>
+                  <small>Personal profile</small>
+                </span>
+              </a>
+              <a class="contact-personal-link" href="https://github.com/xotabu4" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .3A12 12 0 0 0 8.2 23.7c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 .1.8 1.8 2.8 1.3.1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 3 .1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+                <span>
+                  <strong>GitHub</strong>
+                  <small>Personal account</small>
+                </span>
+              </a>
+            </nav>
           </div>
         </div>
       </div>
