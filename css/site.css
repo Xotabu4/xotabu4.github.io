@@ -766,6 +766,7 @@ h2 {
 .teaser-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .services-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2.2rem; }
 .services-actions p { margin: 0; color: var(--muted); font-size: .95rem; }
+.services-actions p a { color: var(--signal); text-decoration: underline; text-underline-offset: .22em; }
 
 .page-hero { padding-top: clamp(9rem, 17vw, 12.5rem); padding-bottom: clamp(3rem, 7vw, 5rem); }
 .page-hero h1 { max-width: 15ch; font-size: clamp(3.1rem, 6.6vw, 6.4rem); }
@@ -801,6 +802,36 @@ h2 {
   text-transform: uppercase;
 }
 .offer-meta b { color: var(--acid); font-weight: 850; }
+
+.veterans .chapter-no { color: var(--signal); }
+.veterans .offer-card { border-color: rgba(255,116,82,.3); background: linear-gradient(145deg, rgba(255,116,82,.07), rgba(255,255,255,.012)); }
+.veterans .offer-card:hover { border-color: rgba(255,116,82,.5); background: linear-gradient(145deg, rgba(255,116,82,.12), rgba(255,255,255,.015)); }
+.veterans .offer-points li::before { color: var(--signal); }
+.veterans .offer-meta b { color: var(--signal); }
+.veterans-note {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: 1rem;
+  padding: clamp(1.5rem, 3.5vw, 2.4rem);
+  background: var(--signal-soft);
+  border: 1px solid rgba(255,116,82,.26);
+  border-radius: 1.25rem;
+}
+.veterans-note .kicker { color: var(--signal); font-size: .7rem; font-weight: 850; letter-spacing: .15em; text-transform: uppercase; }
+.note-body { display: grid; gap: 1rem; justify-items: start; align-content: start; }
+.veterans-note p { margin: 0; max-width: 64ch; color: var(--muted); }
+.veterans-note .note-lead {
+  margin-top: .8rem;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+.veterans-note p[lang="uk"] { color: var(--ink); font-weight: 650; }
+.veterans-note .button { justify-self: start; margin-top: .4rem; color: var(--bg); background: var(--signal); border-color: var(--signal); }
+.veterans-note .button:hover, .veterans-note .button:focus-visible { box-shadow: 0 12px 34px rgba(255,116,82,.22); }
 
 .photo-band { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem; }
 .photo-figure {
@@ -950,7 +981,7 @@ footer { padding: 0 0 2.2rem; }
   .ht-poster { min-height: 22rem; }
   .contact-personal { grid-template-columns: 1fr; }
   .services-teaser { grid-template-columns: repeat(2, 1fr); }
-  .offer-grid, .steps, .photo-band { grid-template-columns: 1fr; }
+  .offer-grid, .steps, .photo-band, .veterans-note { grid-template-columns: 1fr; }
   .photo-wide img { aspect-ratio: 3 / 2; }
   .stat { border-bottom: 1px solid var(--line); }
   .stat:nth-child(2n) { border-right: 0; }
