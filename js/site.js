@@ -65,23 +65,32 @@
   if (year) year.textContent = new Date().getFullYear();
 
   const toggle = document.querySelector('.nav-toggle');
-  const flyout = document.querySelector('.nav-flyout');
-  const flyoutBtn = document.querySelector('.nav-flyout-btn');
+  const flyouts = [...document.querySelectorAll('.nav-flyout')];
+  const closeFlyouts = () => {
+    flyouts.forEach((flyout) => {
+      flyout.classList.remove('is-open');
+      flyout.querySelector('.nav-flyout-btn').setAttribute('aria-expanded', 'false');
+    });
+  };
   const closeNav = () => {
     nav.classList.remove('is-open');
-    flyout.classList.remove('is-open');
+    closeFlyouts();
     toggle.setAttribute('aria-expanded', 'false');
-    flyoutBtn.setAttribute('aria-expanded', 'false');
   };
   toggle.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(open));
-    if (!open) flyout.classList.remove('is-open');
+    if (!open) closeFlyouts();
   });
-  flyoutBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-    const open = flyout.classList.toggle('is-open');
-    flyoutBtn.setAttribute('aria-expanded', String(open));
+  flyouts.forEach((flyout) => {
+    const button = flyout.querySelector('.nav-flyout-btn');
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const open = !flyout.classList.contains('is-open');
+      closeFlyouts();
+      flyout.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', String(open));
+    });
   });
   nav.querySelectorAll('.nav-links a').forEach((link) => {
     link.addEventListener('click', closeNav);

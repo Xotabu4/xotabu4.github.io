@@ -27,8 +27,20 @@
         <span class="brand-mark" aria-hidden="true">OK</span>
         <span>Oleksandr Khotemskyi</span>
       </a>
-      <nav class="nav-links" id="site-nav" aria-label="Page sections">
-        <a href="index.html">Home</a>
+      <nav class="nav-links" id="site-nav" aria-label="Site sections">
+        <a href="index.html#story">Story</a>
+        <div class="nav-flyout">
+          <button class="nav-flyout-btn" type="button" aria-expanded="false" aria-controls="work-menu">
+            Work <i aria-hidden="true">▾</i>
+          </button>
+          <div class="nav-submenu" id="work-menu">
+            <a href="index.html#impact"><b>01</b><span>Reliability</span></a>
+            <a href="index.html#ai"><b>02</b><span>AI in the workflow</span></a>
+            <a href="index.html#cyborg"><b>03</b><span>CyborgTests</span></a>
+            <a href="index.html#community"><b>04</b><span>Hot Testing</span></a>
+            <a href="index.html#stakes"><b>05</b><span>High-stakes</span></a>
+          </div>
+        </div>
         <div class="nav-flyout">
           <button class="nav-flyout-btn" type="button" aria-expanded="false" aria-controls="services-menu" aria-current="page">
             Services <i aria-hidden="true">▾</i>
@@ -41,7 +53,6 @@
             <a href="#veterans"><b>05</b><span>Free for veterans</span></a>
           </div>
         </div>
-        <a href="#how">How it works</a>
         <a class="nav-cta" href="#contact">Contact</a>
       </nav>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>

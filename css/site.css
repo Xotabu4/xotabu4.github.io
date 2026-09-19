@@ -931,6 +931,9 @@ footer { padding: 0 0 2.2rem; }
     flex-direction: column;
     align-items: stretch;
     gap: .15rem;
+    max-height: calc(100svh - 5.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: .8rem;
     background: rgba(11, 13, 12, .96);
     border: 1px solid var(--line);
