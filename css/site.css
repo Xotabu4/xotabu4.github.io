@@ -804,10 +804,6 @@ h2 {
 .offer-meta b { color: var(--acid); font-weight: 850; }
 
 .veterans .chapter-no { color: var(--signal); }
-.veterans .offer-card { border-color: rgba(255,116,82,.3); background: linear-gradient(145deg, rgba(255,116,82,.07), rgba(255,255,255,.012)); }
-.veterans .offer-card:hover { border-color: rgba(255,116,82,.5); background: linear-gradient(145deg, rgba(255,116,82,.12), rgba(255,255,255,.015)); }
-.veterans .offer-points li::before { color: var(--signal); }
-.veterans .offer-meta b { color: var(--signal); }
 .veterans-note {
   display: grid;
   grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
